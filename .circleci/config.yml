@@ -25,8 +25,8 @@ jobs:
       - run: mvn package
       - store_artifacts: # store the uberjar as an artifact
           path: target/SpringBootStandAloneExample-1.0.0.jar
-      - run: apt-get update && apt-get install -y python-pip
-      - run: pip install awscli --ignore-installed six
+      - run: apt-get update && apt-get install -y python-pip sudo
+      - run: pip install awscli --ignore-installed six sudo
       - run:
           name: Deploy to S3
           command: aws s3 sync target/SpringBootStandAloneExample-1.0.0.jar  s3://circle-production-static-site/docs/ --delete
