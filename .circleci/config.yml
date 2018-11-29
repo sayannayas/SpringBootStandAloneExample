@@ -24,4 +24,4 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
       - run: mvn package
       - store_artifacts: # store the uberjar as an artifact
-          path: target/SpringBootStandAloneExample-1.0.0-SNAPSHOT.jar
+          path: target/SpringBootStandAloneExample-1.0.0.jar
