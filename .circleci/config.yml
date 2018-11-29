@@ -10,7 +10,6 @@ jobs:
     working_directory: ~/repo
     environment:
        MAVEN_OPTS: -Xmx3200m
-
     steps:
       - checkout
       - restore_cache:
@@ -28,6 +27,6 @@ jobs:
       - run:
           name: Install awscli
           command: sudo pip install awscli
-       - run:
+      - run:
           name: copy to S3
           command: aws s3 target/SpringBootStandAloneExample-1.0.0.jar s3://circle-production-static-site/docs/ --delete
