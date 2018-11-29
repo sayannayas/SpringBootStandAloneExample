@@ -25,34 +25,8 @@ jobs:
       - run: mvn package
       - store_artifacts: # store the uberjar as an artifact
           path: target/SpringBootStandAloneExample-1.0.0.jar
+      - run: apt-get update && apt-get install -y python-pip
+      - run: pip install awscli --ignore-installed six
       - run:
-          name: Install jFrog CLI
-          command: curl -fL https://getcli.jfrog.io | sh
-      - run:
-          name: Push to Artifactory
-          command: |
-           ./jfrog rt config --url https://dl.bintray.com/sayannayas/SpringBootStandAloneExample --user sayannayas  --apikey e192ee6ac63a24b78ffd08785aa0f25f557ac7a9 --interactive=false
-           ./jfrog rt u "multi*/*.jar" SpringBootStandAloneExample --build-name=SpringBootStandAloneExample --build-number=$CIRCLE_BUILD_NUM --flat=false
-
-  deploy:
-     docker:
-        - image: circleci/python:2.7-jessie
-     working_directory: ~/repo
-     steps:
-        - run:
-           name: Install awscli
-           command: sudo pip install awscli
-        - run:
-            name: Deploy to S3
-            command: aws s3 sync /home/circleci/repo/target/SpringBootStandAloneExample-1.0.0.jar  s3://circle-production-static-site/docs/ --delete
-workflows:
-    version: 2
-    build-deploy:
-      jobs:
-        - build
-        - deploy:
-            requires:
-              - build
-            filters:
-              branches:
-                only: master
+          name: Deploy to S3
+          command: aws s3 sync target/SpringBootStandAloneExample-1.0.0.jar  s3://circle-production-static-site/docs/ --delete
