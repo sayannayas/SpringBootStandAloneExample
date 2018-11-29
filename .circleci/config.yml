@@ -32,4 +32,4 @@ jobs:
           sudo zip -r SpringBootStandAloneExample.zip target
       - run:
           name: Deploy to S3
-          command: aws s3 cp SpringBootStandAloneExample.zip  s3://circle-production-static-site/docs/
+          command: aws s3 cp SpringBootStandAloneExample.zip  s3://unique-bucket-aws-123/
