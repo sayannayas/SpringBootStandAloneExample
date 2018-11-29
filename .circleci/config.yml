@@ -25,6 +25,14 @@ jobs:
       - run: mvn package
       - store_artifacts: # store the uberjar as an artifact
           path: target/SpringBootStandAloneExample-1.0.0.jar
+      - run:
+          name: Install jFrog CLI
+          command: curl -fL https://getcli.jfrog.io | sh
+      - run:
+          name: Push to Artifactory
+          command: |
+           ./jfrog rt config --url https://dl.bintray.com/sayannayas/SpringBootStandAloneExample --user sayannayas  --apikey e192ee6ac63a24b78ffd08785aa0f25f557ac7a9 --interactive=false
+           ./jfrog rt u "multi*/*.jar" SpringBootStandAloneExample --build-name=SpringBootStandAloneExample --build-number=$CIRCLE_BUILD_NUM --flat=false
 
   deploy:
      docker:
