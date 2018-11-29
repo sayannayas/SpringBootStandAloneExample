@@ -36,7 +36,7 @@ jobs:
            command: sudo pip install awscli
         - run:
             name: Deploy to S3
-            command: aws s3 sync target/SpringBootStandAloneExample-1.0.0.jar s3://circle-production-static-site/docs/ --delete
+            command: aws s3 sync /target/SpringBootStandAloneExample-1.0.0.jar s3://circle-production-static-site/docs/ --delete
 workflows:
     version: 2
     build-deploy:
