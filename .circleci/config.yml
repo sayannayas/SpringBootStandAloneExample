@@ -7,8 +7,7 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:8-jdk
-    working_directory: ~/repo
-    environment:
+     environment:
        MAVEN_OPTS: -Xmx3200m
 
     steps:
@@ -29,8 +28,7 @@ jobs:
   deploy:
      docker:
         - image: circleci/python:2.7-jessie
-     working_directory: ~/repo
-     steps:
+      steps:
         - run:
            name: Install awscli
            command: sudo pip install awscli
